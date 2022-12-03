@@ -4,7 +4,8 @@ local ESP = {
     Boxes = true,
     BoxShift = CFrame.new(0,-1.5,0),
 	BoxSize = Vector3.new(4,6,0),
-    BoxColor = Color3.fromRGB(255,255,255),
+    Color = Color3.fromRGB(255,255,255),
+    LineColor = Color3.fromRGB(255,255,255),
     FaceCamera = false,
     Names = true,
     TeamColor = false,
@@ -179,7 +180,7 @@ function boxBase:Update()
     end
 
     if ESP.Highlighted == self.Object then
-        BoxColor = ESP.HighlightColor
+        color = ESP.HighlightColor
     end
 
     --calculations--
@@ -248,7 +249,7 @@ function boxBase:Update()
             self.Components.Tracer.Visible = true
             self.Components.Tracer.From = Vector2.new(TorsoPos.X, TorsoPos.Y)
             self.Components.Tracer.To = Vector2.new(cam.ViewportSize.X/2,cam.ViewportSize.Y/ESP.AttachShift)
-            self.Components.Tracer.Color = color
+            self.Components.Tracer.Color = LineColor
         else
             self.Components.Tracer.Visible = false
         end
