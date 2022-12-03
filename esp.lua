@@ -4,10 +4,10 @@ local ESP = {
     Boxes = true,
     BoxShift = CFrame.new(0,-1.5,0),
 	BoxSize = Vector3.new(4,6,0),
-    Color = Color3.fromRGB(255, 170, 0),
+    Color = Color3.fromRGB(255,255,255),
     FaceCamera = false,
     Names = true,
-    TeamColor = true,
+    TeamColor = false,
     Thickness = 2,
     AttachShift = 1,
     TeamMates = true,
@@ -61,7 +61,6 @@ function ESP:GetColor(obj)
 		return ov(obj)
     end
     local p = self:GetPlrFromChar(obj)
-	return p and self.TeamColor and p.Team and p.Team.TeamColor.Color or self.Color
 end
 
 function ESP:GetPlrFromChar(char)
