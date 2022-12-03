@@ -179,41 +179,6 @@ function boxBase:Update()
         return
     end
 
-    local Linecolor
-    if ESP.Highlighted == self.Object then
-        Linecolor = ESP.HighlightColor
-    else
-        Linecolor = self.Linecolor or self.ColorDynamic and self:ColorDynamic() or ESP:GetColor(self.Object) or ESP.Linecolor
-    end
-
-    local allow = true
-    if ESP.Overrides.UpdateAllow and not ESP.Overrides.UpdateAllow(self) then
-        allow = false
-    end
-    if self.Player and not ESP.TeamMates and ESP:IsTeamMate(self.Player) then
-        allow = false
-    end
-    if self.Player and not ESP.Players then
-        allow = false
-    end
-    if self.IsEnabled and (type(self.IsEnabled) == "string" and not ESP[self.IsEnabled] or type(self.IsEnabled) == "function" and not self:IsEnabled()) then
-        allow = false
-    end
-    if not workspace:IsAncestorOf(self.PrimaryPart) and not self.RenderInNil then
-        allow = false
-    end
-
-    if not allow then
-        for i,v in pairs(self.Components) do
-            v.Visible = false
-        end
-        return
-    end
-
-    if ESP.Highlighted == self.Object then
-        Linecolor = ESP.HighlightColor
-    end
-
     --calculations--
     local cf = self.PrimaryPart.CFrame
     if ESP.FaceCamera then
@@ -338,7 +303,7 @@ function ESP:Add(obj, options)
 	
 	box.Components["Tracer"] = Draw("Line", {
 		Thickness = ESP.Thickness,
-		Color = box.Color,
+		Color = ESP.LineColor,
         Transparency = 1,
         Visible = self.Enabled and self.Tracers
     })
