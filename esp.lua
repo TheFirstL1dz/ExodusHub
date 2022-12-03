@@ -5,13 +5,12 @@ local ESP = {
     BoxShift = CFrame.new(0,-1.5,0),
 	BoxSize = Vector3.new(4,6,0),
     Color = Color3.fromRGB(255,255,255),
-    LineColor = Color3.fromRGB(255,255,255),
     FaceCamera = false,
     Names = true,
     TeamColor = false,
     Thickness = 2,
     AttachShift = 1,
-    TeamMates = true,
+    TeamMates = false,
     Players = true,
     
     Objects = setmetatable({}, {__mode="kv"}),
@@ -179,6 +178,10 @@ function boxBase:Update()
         return
     end
 
+    if ESP.Highlighted == self.Object then
+        color = ESP.HighlightColor
+    end
+
     --calculations--
     local cf = self.PrimaryPart.CFrame
     if ESP.FaceCamera then
@@ -245,7 +248,7 @@ function boxBase:Update()
             self.Components.Tracer.Visible = true
             self.Components.Tracer.From = Vector2.new(TorsoPos.X, TorsoPos.Y)
             self.Components.Tracer.To = Vector2.new(cam.ViewportSize.X/2,cam.ViewportSize.Y/ESP.AttachShift)
-            self.Components.Tracer.Color = LineColor
+            self.Components.Tracer.Color = color
         else
             self.Components.Tracer.Visible = false
         end
@@ -303,7 +306,7 @@ function ESP:Add(obj, options)
 	
 	box.Components["Tracer"] = Draw("Line", {
 		Thickness = ESP.Thickness,
-		Color = ESP.LineColor,
+		Color = box.Color,
         Transparency = 1,
         Visible = self.Enabled and self.Tracers
     })
